@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 class Pagina2 : AppCompatActivity() {
 
-    private val items: ArrayList<Tranferencies> = ArrayList()
+    private val items: ArrayList<Transferencia> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,11 +41,11 @@ class Pagina2 : AppCompatActivity() {
             money.text = result.toString()
             dinersTotal = result.toString()
 
-            var transf = intent.getSerializableExtra("transferenciaNova") as Tranferencies
+            var transf = intent.getSerializableExtra("transferenciaNova") as Transferencia
             items.add(transf)
         }
 
-        val transf1 = Tranferencies("Trans1", 123456789, "Bizum", 100.00F)
+        /*val transf1 = Transferencia("Trans1", 123456789, "Bizum", 100.00F)
         items.add(transf1)
         items.add(transf1)
         items.add(transf1)
@@ -56,7 +56,7 @@ class Pagina2 : AppCompatActivity() {
         items.add(transf1)
         items.add(transf1)
         items.add(transf1)
-        items.add(transf1)
+        items.add(transf1)*/
         rvList.adapter = ListAdapter(items, this)
         rvList.layoutManager = LinearLayoutManager(this)
 

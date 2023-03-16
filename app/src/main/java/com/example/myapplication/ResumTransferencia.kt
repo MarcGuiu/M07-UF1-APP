@@ -33,14 +33,14 @@ class resumTransferencia : AppCompatActivity() {
         importResum.text = "Import: $import"
 
         btnReturn.setOnClickListener{
-            val transf = Tranferencies(nom.toString(), telefon.toString().toInt(), concepte.toString(), import.toString().toFloat())
+            /*val transf = Tranferencies(nom.toString(), telefon.toString().toInt(), concepte.toString(), import.toString().toFloat())
             val intent = Intent(applicationContext, Pagina2::class.java)
             intent.apply {
                 putExtra("username", username)
                 putExtra("import", import)
                 putExtra("dinersTotal", dinersTotal)
                 putExtra("transferenciaNova", transf)
-            }
+            }*/
             startActivity(intent)
         }
     }

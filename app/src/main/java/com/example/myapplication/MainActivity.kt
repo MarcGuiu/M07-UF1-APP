@@ -3,10 +3,15 @@ package com.example.myapplication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +30,17 @@ class MainActivity : AppCompatActivity() {
 
                 val toast = Toast.makeText(applicationContext, text, duration)
                 toast.show()
+                GlobalScope.launch {
+                    val call = getRetrofit().create(TransferenciaAPIService::class.java)
+                        .getAllTransfers().execute()
+                    val comments = call.body() as List<Transferencia>
+                    comments.forEach{
+                        println("id--------> ${it.id}   " +
+                                "concepte--------> ${it.concepte}   " +
+                                "import--------> ${it.import}   " +
+                                "telefon--------> ${it.telefon}")
+                    }
+                }
             } else {
                 val intent = Intent(applicationContext, Pagina2::class.java)
                 intent.apply {
@@ -34,7 +50,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
-
+    }
+    private fun getRetrofit(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("https://my-json-server.typicode.com/MarcGuiu/M07-UF1-API-NCA/")
+            .addConverterFactory(GsonConverterFactory.create()) .build()
     }
 }
