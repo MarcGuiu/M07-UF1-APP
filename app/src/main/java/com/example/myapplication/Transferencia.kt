@@ -1,9 +1,13 @@
 package com.example.myapplication
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity
+data class Transferencia (@PrimaryKey(autoGenerate = true) var id: Int,
+                          @ColumnInfo(name ="concept") var concept: String?,
+                          @ColumnInfo(name = "import") var import: Int,
+                          @ColumnInfo(name = "telefon") var telefon: String)
 
-data class Transferencia (@SerializedName("id") var id:Int,
-                            @SerializedName("concept") var concepte:String,
-                            @SerializedName("import") var import: Int,
-                            @SerializedName("telefon") var telefon: String)

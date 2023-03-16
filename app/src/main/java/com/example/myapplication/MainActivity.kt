@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
                     val comments = call.body() as List<Transferencia>
                     comments.forEach{
                         println("id--------> ${it.id}   " +
-                                "concepte--------> ${it.concepte}   " +
+                                "concepte--------> ${it.concept}   " +
                                 "import--------> ${it.import}   " +
                                 "telefon--------> ${it.telefon}")
                     }
