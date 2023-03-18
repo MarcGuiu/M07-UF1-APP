@@ -14,6 +14,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var db: AppDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -30,17 +31,6 @@ class MainActivity : AppCompatActivity() {
 
                 val toast = Toast.makeText(applicationContext, text, duration)
                 toast.show()
-                GlobalScope.launch {
-                    val call = getRetrofit().create(TransferenciaAPIService::class.java)
-                        .getAllTransfers().execute()
-                    val comments = call.body() as List<Transferencia>
-                    comments.forEach{
-                        println("id--------> ${it.id}   " +
-                                "concepte--------> ${it.concept}   " +
-                                "import--------> ${it.import}   " +
-                                "telefon--------> ${it.telefon}")
-                    }
-                }
             } else {
                 val intent = Intent(applicationContext, Pagina2::class.java)
                 intent.apply {
@@ -50,6 +40,33 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
+        GlobalScope.launch {
+            db = AppDatabase.getInstance(applicationContext)!!
+            val items = db.TransferenciaDAO().loadAllTransfers()
+            if (items.isEmpty()) {
+                Log.i("------>", "-----------BBDD buida---------------")
+                val call = getRetrofit().create(TransferenciaAPIService::class.java).getAllTransfers().execute()
+                val transferencies = call.body() as List<Transferencia>
+                val db = AppDatabase.getInstance(applicationContext)
+                for (transferencia in transferencies) {
+                    Log.i("-->", "--------------------" + transferencia.concepte)
+                    db?.TransferenciaDAO()?.insert(transferencia)
+                }
+            } else {
+                Log.i("------>", "-----------BBDD plena---------------")
+                items.forEach {
+                    Log.i("-->", it.toString())
+                }
+            }
+/*
+            val call = getRetrofit().create(TransferenciaAPIService::class.java)
+                .getAllTransfers().execute()
+            val comments = call.body() as List<Transferencia>
+            comments.forEach{
+                db.TransferenciaDAO().insert(it)
+            }*/
+        }
     }
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()

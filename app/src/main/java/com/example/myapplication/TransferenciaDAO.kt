@@ -10,6 +10,6 @@ interface TransferenciaDAO {
     @Insert(onConflict = REPLACE)
     fun insert(transferencia: Transferencia)
 
-    @Query("SELECT * FROM item")
+    @Query("SELECT * FROM transferencia")
     fun loadAllTransfers(): List<Transferencia>
 }
