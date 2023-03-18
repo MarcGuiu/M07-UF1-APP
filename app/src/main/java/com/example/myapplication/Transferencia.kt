@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class Transferencia (
     @PrimaryKey(autoGenerate = true) var id: Int?,
-    @ColumnInfo(name = "concepte") var concepte: String?,
-    @ColumnInfo(name = "import") var importDiners: Int?,
-    @ColumnInfo(name = "telefon") var telefon: String?
+    @ColumnInfo(name = "concept") var concept: String?,
+    @ColumnInfo(name = "importDiners") var importDiners: Int?,
+    @ColumnInfo(name = "telefon") var telefon: Int?
 )

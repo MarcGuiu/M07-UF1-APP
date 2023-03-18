@@ -17,13 +17,13 @@
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = items[position]
-            /*holder.tvItem.text = item.concepte
-            holder.tvItem2.text = item.import.toString() + " €"
+            holder.tvItem.text = item.concept
+            holder.tvItem2.text = item.importDiners.toString() + " €"
 
             holder.btn2.setOnClickListener(){
                 items.removeAt(position)
                 notifyDataSetChanged()
-            }*/
+            }
         }
 
         override fun getItemCount(): Int {
@@ -34,5 +34,11 @@
             val tvItem = view.findViewById<TextView>(R.id.tv_item)
             val tvItem2 = view.findViewById<TextView>(R.id.tv_item2)
             val btn2 = view.findViewById<Button>(R.id.button7)
+        }
+
+        fun updateList(newList: List<Transferencia>) {
+            items.clear()
+            items.addAll(newList)
+            notifyDataSetChanged()
         }
     }

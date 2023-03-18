@@ -5,14 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-
 @Database(
     entities = [Transferencia::class],
     version = 2
 )
 abstract class AppDatabase: RoomDatabase() {
     abstract fun TransferenciaDAO(): TransferenciaDAO
-
 
     //Part de codi que s'encarrega de la creació, comprobació o esborrar una BD al executar o elimimnar una app
     companion object {
@@ -22,7 +20,7 @@ abstract class AppDatabase: RoomDatabase() {
         fun getInstance(context: Context): AppDatabase? {
             if (INSTANCE == null) {
                 synchronized(AppDatabase::class) {
-                    INSTANCE = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "transferencies.db").build()
+                    INSTANCE = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "cashtransfere.db").build()
                 } }
             return INSTANCE
         }
@@ -32,4 +30,5 @@ abstract class AppDatabase: RoomDatabase() {
             INSTANCE = null
         }
     }
+
 }
