@@ -6,14 +6,16 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var db: AppDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -30,17 +32,6 @@ class MainActivity : AppCompatActivity() {
 
                 val toast = Toast.makeText(applicationContext, text, duration)
                 toast.show()
-                GlobalScope.launch {
-                    val call = getRetrofit().create(TransferenciaAPIService::class.java)
-                        .getAllTransfers().execute()
-                    val comments = call.body() as List<Transferencia>
-                    comments.forEach{
-                        println("id--------> ${it.id}   " +
-                                "concepte--------> ${it.concept}   " +
-                                "import--------> ${it.import}   " +
-                                "telefon--------> ${it.telefon}")
-                    }
-                }
             } else {
                 val intent = Intent(applicationContext, Pagina2::class.java)
                 intent.apply {
@@ -50,6 +41,24 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        GlobalScope.launch {
+            db = AppDatabase.getInstance(applicationContext)!!
+            val items = db.TransferenciaDAO().loadAllTransfers()
+            if (items.isEmpty()) {
+                Log.i("------>", "-----------BBDD buida---------------")
+                //db.TransferenciaDAO().insert(Transferencia(10,"Prova concepte", 100, 123123123))
+                val call =  getRetrofit().create(TransferenciaAPIService::class.java)
+                    .getAllTransfers().execute()
+                val transferencies = call.body() as List<Transferencia>
+                transferencies.forEach {
+                    db.TransferenciaDAO().insert(it)
+                }
+            } else {
+                Log.i("------>", "-----------BBDD plena---------------")
+                items.forEach {
+                }
+            }
+        }
     }
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
