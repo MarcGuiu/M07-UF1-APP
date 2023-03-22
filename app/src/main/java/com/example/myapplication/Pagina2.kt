@@ -60,12 +60,8 @@ class Pagina2 : AppCompatActivity() {
         rvList.layoutManager = LinearLayoutManager(this)
 
         transfer.setOnClickListener{
-            val intent = Intent(applicationContext, NovaTransferencia::class.java)
-            intent.apply {
-                putExtra("username", username)
-                putExtra("dinersTotal", dinersTotal)
-            }
-            startActivity(intent)
+            val intent = Intent(this, BlankActivity::class.java)
+            this.startActivity(intent)
         }
         searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {

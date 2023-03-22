@@ -1,11 +1,15 @@
     package com.example.myapplication
 
     import android.content.Context
+    import android.content.Intent
+    import android.util.Log
     import android.view.LayoutInflater
     import android.view.View
     import android.view.ViewGroup
     import android.widget.Button
     import android.widget.TextView
+    import androidx.appcompat.app.AppCompatActivity
+    import androidx.core.content.ContextCompat.startActivity
     import androidx.recyclerview.widget.RecyclerView
     import kotlinx.coroutines.GlobalScope
     import kotlinx.coroutines.launch
@@ -29,7 +33,7 @@
             holder.tvItem.text = item.concept
             holder.tvItem2.text = item.importDiners.toString() + " €"
 
-            holder.btnDelete.setOnClickListener(){
+            holder.btnDelete.setOnClickListener{
                 items.removeAt(position)
                 notifyDataSetChanged()
                 GlobalScope.launch {
@@ -41,6 +45,10 @@
                     }
                 }
             }
+            holder.btnEdit.setOnClickListener{
+                val intent = Intent(context, BlankActivity::class.java)
+                context.startActivity(intent)
+            }
         }
 
         override fun getItemCount(): Int {
@@ -51,6 +59,7 @@
             val tvItem = view.findViewById<TextView>(R.id.tv_item)
             val tvItem2 = view.findViewById<TextView>(R.id.tv_item2)
             val btnDelete = view.findViewById<Button>(R.id.button7)
+            val btnEdit = view.findViewById<Button>(R.id.button2)
         }
 
         fun updateList(newList: List<Transferencia>) {

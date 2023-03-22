@@ -4,11 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/aaCLASSE/DAM-2/m07/UF1/AppUI/app/src/main/res/layout-land/activity_main.xml" value="0.26458333333333334" />
+        <entry key="..\:/aaCLASSE/DAM-2/m07/UF1/AppUI/app/src/main/res/layout/activity_blanck.xml" value="0.36666666666666664" />
         <entry key="..\:/aaCLASSE/DAM-2/m07/UF1/AppUI/app/src/main/res/layout/activity_main.xml" value="0.23007246376811594" />
         <entry key="..\:/aaCLASSE/DAM-2/m07/UF1/AppUI/app/src/main/res/layout/activity_main2.xml" value="0.25416666666666665" />
         <entry key="..\:/aaCLASSE/DAM-2/m07/UF1/AppUI/app/src/main/res/layout/activity_nova_transferencia.xml" value="0.25416666666666665" />
         <entry key="..\:/aaCLASSE/DAM-2/m07/UF1/AppUI/app/src/main/res/layout/activity_pagina2.xml" value="0.264" />
         <entry key="..\:/aaCLASSE/DAM-2/m07/UF1/AppUI/app/src/main/res/layout/activity_resum_transferencia.xml" value="0.25416666666666665" />
+        <entry key="..\:/aaCLASSE/DAM-2/m07/UF1/AppUI/app/src/main/res/layout/fragment_create.xml" value="0.36666666666666664" />
+        <entry key="..\:/aaCLASSE/DAM-2/m07/UF1/AppUI/app/src/main/res/layout/fragment_edit.xml" value="0.36666666666666664" />
         <entry key="..\:/aaCLASSE/DAM-2/m07/UF1/AppUI/app/src/main/res/layout/fragment_notifications.xml" value="0.23007246376811594" />
         <entry key="..\:/aaCLASSE/DAM-2/m07/UF1/AppUI/app/src/main/res/layout/item_list.xml" value="0.25416666666666665" />
         <entry key="..\:/aaCLASSE/DAM-2/m07/UF1/AppUI/app/src/main/res/menu/bottom_nav_menu.xml" value="0.11302083333333333" />
