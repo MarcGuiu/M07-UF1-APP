@@ -3,7 +3,6 @@ package com.example.myapplication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -17,9 +16,9 @@ class NovaTransferencia : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nova_transferencia)
 
-        val nom = findViewById<EditText>(R.id.nom)
-        val telefon = findViewById<EditText>(R.id.telefon)
-        val concepte = findViewById<EditText>(R.id.concepte)
+        val nom = findViewById<EditText>(R.id.concepte)
+        val telefon = findViewById<EditText>(R.id.id)
+        val concepte = findViewById<EditText>(R.id.telefon)
         val import = findViewById<EditText>(R.id.importDiners)
         val transferir = findViewById<Button>(R.id.transferir)
         val username = intent.getStringExtra("username")
