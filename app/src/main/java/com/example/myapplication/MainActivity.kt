@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Log.i("------>", "-----------BBDD plena---------------")
                 items.forEach {
+                    Log.i("-->", it.toString())
                 }
             }
         }
