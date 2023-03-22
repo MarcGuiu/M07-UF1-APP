@@ -7,8 +7,12 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class NovaTransferencia : AppCompatActivity() {
+    private lateinit var db: AppDatabase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nova_transferencia)
@@ -29,6 +33,11 @@ class NovaTransferencia : AppCompatActivity() {
                 val toast = Toast.makeText(applicationContext, text, duration)
                 toast.show()
             } else {
+                GlobalScope.launch {
+                    db = AppDatabase.getInstance(applicationContext)!!
+                    val newTransfer = Transferencia(null, concepte.text.toString(), import.text.toString().toInt(),telefon.text.toString().toInt())
+                    db.TransferenciaDAO().insert(newTransfer)
+                }
                 val intent = Intent(applicationContext, resumTransferencia::class.java)
                 intent.apply {
                     putExtra("nom", nom.text.toString())
@@ -37,8 +46,6 @@ class NovaTransferencia : AppCompatActivity() {
                     putExtra("import", import.text.toString())
                     putExtra("username", username)
                     putExtra("dinersTotal", dinersTotal)
-
-
                 }
                 startActivity(intent)
             }
