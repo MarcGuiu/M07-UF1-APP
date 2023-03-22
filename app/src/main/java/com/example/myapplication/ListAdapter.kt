@@ -7,8 +7,17 @@
     import android.widget.Button
     import android.widget.TextView
     import androidx.recyclerview.widget.RecyclerView
+    import kotlinx.coroutines.GlobalScope
+    import kotlinx.coroutines.launch
 
     class ListAdapter(val items: ArrayList<Transferencia>, val context: Context): RecyclerView.Adapter<ListAdapter.ViewHolder>() {
+
+        private val originalList: MutableList<Transferencia> = mutableListOf()
+        val database = AppDatabase.getInstance(context)
+
+        init {
+            originalList.addAll(items)
+        }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val view = LayoutInflater.from(context).inflate(R.layout.item_list, parent, false)
@@ -20,9 +29,17 @@
             holder.tvItem.text = item.concept
             holder.tvItem2.text = item.importDiners.toString() + " €"
 
-            holder.btn2.setOnClickListener(){
+            holder.btnDelete.setOnClickListener(){
                 items.removeAt(position)
                 notifyDataSetChanged()
+                GlobalScope.launch {
+                    val dao = database?.TransferenciaDAO()
+
+                    // Eliminar la transferencia de la base de datos
+                    if (dao != null) {
+                        item.id?.let { it1 -> dao.deleteTransferenciaById(it1) }
+                    }
+                }
             }
         }
 
@@ -33,12 +50,17 @@
         class ViewHolder(view: View): RecyclerView.ViewHolder(view){
             val tvItem = view.findViewById<TextView>(R.id.tv_item)
             val tvItem2 = view.findViewById<TextView>(R.id.tv_item2)
-            val btn2 = view.findViewById<Button>(R.id.button7)
+            val btnDelete = view.findViewById<Button>(R.id.button7)
         }
 
         fun updateList(newList: List<Transferencia>) {
             items.clear()
-            items.addAll(newList)
+            if (newList.isEmpty()) {
+                items.addAll(originalList)
+            } else {
+                items.addAll(newList)
+            }
             notifyDataSetChanged()
         }
+
     }

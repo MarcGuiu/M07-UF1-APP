@@ -12,4 +12,9 @@ interface TransferenciaDAO {
 
     @Query("SELECT * FROM transferencia")
     fun loadAllTransfers(): List<Transferencia>
+
+    @Query("DELETE FROM transferencia WHERE id = :id")
+    fun deleteTransferenciaById(id: Int)
+
+
 }

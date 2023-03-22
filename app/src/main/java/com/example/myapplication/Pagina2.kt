@@ -16,6 +16,8 @@ class Pagina2 : AppCompatActivity() {
     private val items: ArrayList<Transferencia> = ArrayList()
     private lateinit var db: AppDatabase
     private lateinit var searchView: androidx.appcompat.widget.SearchView
+    private lateinit var adapter: ListAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,9 +55,7 @@ class Pagina2 : AppCompatActivity() {
             }
 
         }
-
-        rvList.adapter = ListAdapter(items, this)
-        rvList.layoutManager = LinearLayoutManager(this)
+        adapter = ListAdapter(items, this)
         rvList.adapter = ListAdapter(items, this)
         rvList.layoutManager = LinearLayoutManager(this)
 
@@ -77,7 +77,9 @@ class Pagina2 : AppCompatActivity() {
                 if (newText != null) {
                     val filteredList = items.filter { it.concept?.contains(newText, ignoreCase = true)
                         ?: true }
-                    (rvList.adapter as ListAdapter).updateList(filteredList)
+                    adapter.updateList(filteredList)
+                } else {
+                    adapter.updateList(items)
                 }
                 return true
             }
