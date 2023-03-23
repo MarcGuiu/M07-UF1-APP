@@ -10,6 +10,7 @@
     import android.widget.TextView
     import androidx.appcompat.app.AppCompatActivity
     import androidx.core.content.ContextCompat.startActivity
+    import androidx.fragment.app.FragmentManager
     import androidx.recyclerview.widget.RecyclerView
     import kotlinx.coroutines.GlobalScope
     import kotlinx.coroutines.launch
@@ -47,6 +48,11 @@
             }
             holder.btnEdit.setOnClickListener{
                 val intent = Intent(context, BlankActivity::class.java)
+                context.startActivity(intent)
+            }
+
+            holder.tvItem.setOnClickListener{
+                val intent = Intent(context, BlankActivity2::class.java)
                 context.startActivity(intent)
             }
         }
