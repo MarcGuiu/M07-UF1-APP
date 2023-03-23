@@ -53,6 +53,7 @@ class ResumFragment : Fragment(){
         val concepteResum = view.findViewById<TextView>(R.id.concepteResum)
         val telefonResum = view.findViewById<TextView>(R.id.telefonResum)
         val importResum = view.findViewById<TextView>(R.id.importResum)
+        val btnReturn = view.findViewById<Button>(R.id.btnRetorn)
         //val bundle = arguments
         //val newTransfer = bundle?.getParcelable<Transferencia>("miObjeto")
         /*
@@ -65,6 +66,11 @@ class ResumFragment : Fragment(){
         telefonResum.text = "Telefon: $telefon"
         concepteResum.text = "Concepte: $concepte"
         importResum.text = "Import: $import"
+
+        btnReturn.setOnClickListener{
+            val intent = Intent(context, Pagina2::class.java)
+            startActivity(intent)
+        }
     }
 
     companion object {
