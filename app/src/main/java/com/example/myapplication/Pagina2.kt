@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,8 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import android.widget.SearchView
 
 class Pagina2 : AppCompatActivity() {
 
@@ -17,6 +18,8 @@ class Pagina2 : AppCompatActivity() {
     private lateinit var db: AppDatabase
     private lateinit var searchView: androidx.appcompat.widget.SearchView
     private lateinit var adapter: ListAdapter
+    var recyclerView: RecyclerView? = null
+    val itemsSearch: ArrayList<Transferencia> = ArrayList()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +35,8 @@ class Pagina2 : AppCompatActivity() {
         var dinersTotal = intent.getStringExtra("dinersTotal")
         searchView = findViewById(R.id.searchView)
         val query = searchView.query.toString()
+        recyclerView = findViewById(R.id.rv_list)
+
 
 
         if (username != null){
@@ -53,11 +58,16 @@ class Pagina2 : AppCompatActivity() {
                     items.add(it)
                 }
             }
-
+            MainScope().launch {
+                // Set up the RecyclerView adapter
+                val adapter = ListAdapter(items, this@Pagina2)
+                recyclerView?.adapter = adapter
+                //adapter = ListAdapter(items, this)
+                itemsSearch.addAll(items)
+                rvList.adapter = ListAdapter(itemsSearch, this@Pagina2)
+                rvList.layoutManager = LinearLayoutManager(this@Pagina2)
+            }
         }
-        adapter = ListAdapter(items, this)
-        rvList.adapter = ListAdapter(items, this)
-        rvList.layoutManager = LinearLayoutManager(this)
 
         transfer.setOnClickListener{
             val intent = Intent(this, BlankActivity::class.java)
@@ -65,19 +75,23 @@ class Pagina2 : AppCompatActivity() {
         }
         searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                // Acciones al pulsar el botón de búsqueda
-                return true
-            }
+                filterTransfers(query)
 
+                return false
+            }
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText != null) {
-                    val filteredList = items.filter { it.concept?.contains(newText, ignoreCase = true)
-                        ?: true }
-                    adapter.updateList(filteredList)
-                } else {
-                    adapter.updateList(items)
+                filterTransfers(newText)
+
+                return false
+            }
+            private fun filterTransfers(text: String?) {
+                itemsSearch.clear()
+                for (item in items){
+                    if (item.concept?.contains(text!!, true) == true){
+                        itemsSearch.add(item)
+                    }
                 }
-                return true
+                rvList.adapter?.notifyDataSetChanged()
             }
         })
     }
