@@ -2,18 +2,17 @@
 
     import android.content.Context
     import android.content.Intent
-    import android.util.Log
+    import android.os.Bundle
     import android.view.LayoutInflater
     import android.view.View
     import android.view.ViewGroup
     import android.widget.Button
     import android.widget.TextView
-    import androidx.appcompat.app.AppCompatActivity
     import androidx.core.content.ContextCompat.startActivity
-    import androidx.fragment.app.FragmentManager
     import androidx.recyclerview.widget.RecyclerView
     import kotlinx.coroutines.GlobalScope
     import kotlinx.coroutines.launch
+
 
     class ListAdapter(val items: ArrayList<Transferencia>, val context: Context): RecyclerView.Adapter<ListAdapter.ViewHolder>() {
 
@@ -52,7 +51,11 @@
             }
 
             holder.tvItem.setOnClickListener{
+                val transferencia = items[position]
+                val bundle = Bundle()
+                bundle.putSerializable("transferencia", transferencia)
                 val intent = Intent(context, BlankActivity2::class.java)
+                intent.putExtras(bundle)
                 context.startActivity(intent)
             }
         }
