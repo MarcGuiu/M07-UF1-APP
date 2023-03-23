@@ -16,9 +16,9 @@ class NovaTransferencia : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nova_transferencia)
 
-        val nom = findViewById<EditText>(R.id.concepte)
-        val telefon = findViewById<EditText>(R.id.id)
-        val concepte = findViewById<EditText>(R.id.telefon)
+        val nom = findViewById<EditText>(R.id.nom)
+        val telefon = findViewById<EditText>(R.id.telefon)
+        val concepte = findViewById<EditText>(R.id.concepte)
         val import = findViewById<EditText>(R.id.importDiners)
         val transferir = findViewById<Button>(R.id.transferir)
         val username = intent.getStringExtra("username")

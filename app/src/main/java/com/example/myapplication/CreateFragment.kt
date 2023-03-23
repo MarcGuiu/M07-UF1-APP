@@ -2,7 +2,6 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import androidx.fragment.app.FragmentManager
 
 class CreateFragment : Fragment() {
     private lateinit var db: AppDatabase
@@ -30,7 +30,7 @@ class CreateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val id = view.findViewById<EditText>(R.id.id)
+        val nom = view.findViewById<EditText>(R.id.nom)
         val concepte = view.findViewById<EditText>(R.id.concepte)
         val importDiners = view.findViewById<EditText>(R.id.importDiners)
         val telefon = view.findViewById<EditText>(R.id.telefon)
@@ -40,12 +40,40 @@ class CreateFragment : Fragment() {
             GlobalScope.launch {
                 db = AppDatabase.getInstance(requireContext())!!
                 val transferencia = Transferencia(
-                    id.text.toString().toInt(),
+                    null,
                     concepte.text.toString(),
                     importDiners.text.toString().toInt(),
                     telefon.text.toString().toInt()
                 )
                 db.TransferenciaDAO().insert(transferencia)
+
+                val bundle = Bundle().apply {
+                    //putSerializable("newTransfer", transferencia)
+                    putString("nom", nom.text.toString())
+                    putString("telefon", telefon.text.toString())
+                    putString("concepte", concepte.text.toString())
+                    putString("import", importDiners.text.toString())
+                }
+                val destino = ResumFragment()
+                destino.arguments = bundle
+            }
+
+                /* Codi per passar a ResumFragment (NO FUNCIONA)
+                2 formas:
+                1a forma:
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_resum, ResumFragment)
+                    .addToBackStack(null)
+                    .commit()
+
+                2a forma:
+                val resumFragment = ResumFragment()
+
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.fragment_resum, resumFragment)
+                    ?.addToBackStack(null)
+                    ?.commit()
+                 */
 
                 activity?.runOnUiThread {
                     // Finaliza la actividad actual
@@ -54,8 +82,6 @@ class CreateFragment : Fragment() {
                     val intent = Intent(context, Pagina2::class.java)
                     startActivity(intent)
                 }
-
-            }
 
         }
 
