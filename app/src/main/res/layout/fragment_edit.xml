@@ -36,10 +36,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/telefon" />
+            app:layout_constraintTop_toBottomOf="@+id/concepte" />
 
         <EditText
-            android:id="@+id/telefon"
+            android:id="@+id/concepte"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="96dp"
@@ -52,10 +52,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/id" />
+            app:layout_constraintTop_toBottomOf="@+id/telefon" />
 
         <EditText
-            android:id="@+id/id"
+            android:id="@+id/telefon"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="96dp"
@@ -68,10 +68,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/concepte" />
+            app:layout_constraintTop_toBottomOf="@+id/nom" />
 
         <EditText
-            android:id="@+id/concepte"
+            android:id="@+id/nom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="96dp"
